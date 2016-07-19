@@ -1,0 +1,32 @@
+\begin{thebibliography}{1}
+
+\bibitem{fdmac}
+M. Duarte, A. Sabharwal, V. Aggarwal, R. Jana, K.K. Ramakrishnan, C.W. Rice,
+  and N.K. Shankaranarayanan,
+``Design and characterization of a full-duplex multiantenna system for {WiFi}
+  networks,''
+{IEEE} Trans.\ Veh.\ Technol.,
+vol.63, no.3, pp.1160--1177, Mar. 2014.
+
+\bibitem{stanford1}
+D. Bharadia, E. McMilin, and S. Katti,
+``Full duplex radios,''
+SIGCOMM Comput.\ Commun.\ Rev.,
+vol.43, no.4, pp.375--386, Oct. 2013.
+
+\bibitem{contra}
+N. Singh, D. Gunawardena, A. Proutiere, B. Radunovic, H.V. Balan, and P. Key,
+``Efficient and fair {MAC} for wireless networks with self-interference
+  cancellation,''
+Proc.\ {WiOpt},
+pp.94--101,
+Princeton, NJ, USA, May 2011.
+
+\bibitem{promac}
+S.-Y. Chen, T.-F. Huang, K.C.-J. Lin, Y.-W.P. Hong, and A. Sabharwal,
+``Probabilistic-based adaptive full-duplex and half-duplex medium access
+  control,''
+GLOBECOM,
+pp.\textbullet\textbullet--\textbullet\textbullet, 2015.
+
+\end{thebibliography}
