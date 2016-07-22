@@ -11,8 +11,8 @@ set size 1,0.8
 set ytics nomirror
 set y2tics 
 set xlabel "{/Symbol-Oblique a}" font "Helvetica, 30"
-set ylabel "System throughput (Mbit/s)" font "Helvetica, 30"
-set y2label "Fairness index" font "Helvetica, 30"
+set ylabel "Average system throughput (Mbit/s)" font "Helvetica, 22"
+set y2label "Average fairness index" font "Helvetica, 25"
 set xrange [0:1]
 set yrange [0:45]
 

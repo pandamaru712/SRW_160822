@@ -70,7 +70,9 @@
 	自己干渉やユーザ間干渉の量に応じて変動する過去の受信成功確率やスループットをもとにSTAの組み合わせを決定するため，
 	STA間の公平性やアプリケーションサービスの要求の違いを考慮できていない．
 	特に，遅延が小さいことが望ましいアプリケーションサービスを用いているSTAであっても，干渉が大きければ送信機会を得にくくなる．
-	本稿ではこの問題解決のために，まず，STA間での公平性を改善する．
+	本稿ではこの問題解決のために，従来研究で定式化されたSTAの組み合わせを決定するための最適化問題に変更を加え，
+	新たな組み合わせ決定手法を提案する．
+	まず，各STAが送信を待機している時間を考慮にいれることでSTA間での公平性を改善する．
 	さらに，遅延が小さいことが望ましいアプリケーションサービスを用いるSTAの送信機会を増加させ，QoS（Quality of Service）を向上させる手法を提案する．
 	さらに，提案手法による公平性の改善効果と低遅延を要求するSTAのQoSの向上効果を計算機シミュレーションにより明らかにする．
 \end{jabstract}
@@ -86,7 +88,8 @@
 	The self-interference can be canceled sufficiently by the cutting edg cancellation technology, but the inter-user interference cannot be canceled.
 	Conventional methods had already proposed schemes to select a pair of STAs to communicate in the full-duplex system considering influences of the inter-user interferences.
 	However, since these schemes select STAs based on only the past full-duplex transmission success probability or throughput, they cannot take into account fairness between STAs and application services which require short delay.
-	In this paper, we propose a scheme to improve the fairness and transmission opportunity optimization for quality of service (QoS) improvemnt.
+	In this paper, we modify optimization problem of the conventional method.
+	We propose a scheme to improve the fairness and quality of service (QoS).
 	Simulation results show that the proposed methods improve the fairness and QoS.
 
 \end{eabstract}
@@ -109,7 +112,7 @@ full-duplex wireless LAN, inter-user interference, optimization
 	全二重通信無線LANでは図\ref{fig:topology}に示すような従来の半二重通信では存在しなかった二つの干渉が問題となる．
 	一つは，送受信を行っているAP（Access Point）において，送信信号が所望の受信信号に干渉を及ぼす自己干渉であり，
 	もう一つは，STA（station） $j$の送信信号がもう一方のSTA $i$の受信信号に干渉を及ぼすユーザ間干渉である．
-	自己干渉は自己干渉キャンセル技術によって無視できるレベルまで削減できることが示されている~\cite{fdmac, stanford1}．
+	自己干渉は自己干渉除去技術によって無視できるレベルまで削減できることが示されている~\cite{fdmac, stanford1}．
 	また，ユーザ間干渉に関しても，適切なSTAの組み合わせを選び出すことや，
 	送信電力制御を行うことでユーザ間干渉を削減する手法が提案されている~\cite{contra, promac}．
 	しかし，~\cite{contra}では1対のSTAの組み合わせを選び出すために過去の全二重通信の成功確率が用いられるため，
@@ -149,7 +152,8 @@ full-duplex wireless LAN, inter-user interference, optimization
 	それらSTAのインデックス集合を$\mN=\{1,2,...,N\}$とする．
 	この$N$台のSTAの中から，図\ref{fig:topology}のようにAPからの下り通信を受信するSTA $i$と，
 	APへの上り通信を行うSTA $j$を選び出す．
-	このとき，STAの組み合わせを$\sij$と表現し，$i,\ j \in \{0\}\cup \mN$であり，$i\neq j$とする．
+	このとき，STAの組み合わせを$\sij$と表現し，$i,\ j \in \{0\}\cup \mN$であり，
+	STAは自己干渉除去技術を持たないため双方向全二重通信はできないと仮定して$i\neq j$とする．
 	ただし，$i=0$のときは下り通信を伴わない上り通信のみの半二重通信であり，
 	$j=0$のときは上り通信を伴わない下り通信のみの半二重通信であるとする．
 	さらに，この$N$台のSTAの中に低遅延を要求するアプリケーションサービスを用いているSTAが$n$台存在し，
@@ -172,7 +176,7 @@ full-duplex wireless LAN, inter-user interference, optimization
 			{\mathcal C}_{\rm full} \triangleq \{\sij : i,j\in{\mathcal N},\ i\neq j,\ r^{\sij}_{\rm d},\ r^{\sij}_{\rm u}>\epsilon\} \label{eq:cfull}
 		\end{equation}
 		ただし，$r_{\rm d}^{\sij}$，$r_{\rm u}^{\sij}$はそれぞれAPからSTA $i$への下りの実効スループット，
-		STA $j$からAPへの上りの実効スループットである．
+		STA $j$からAPへの上りの実効スループットであり，$\epsilon$はスループットが0に近くなるようなSTAの組み合わせを除くためのしきい値である．
 		${\mathcal C}_{\rm full}$に対して，上り下りそれぞれの実効スループット$\rd$，$\ru$を推定し，その合計を$\rij$とする．
 		さらに，半二重通信の組み合わせ
 		\begin{equation}
