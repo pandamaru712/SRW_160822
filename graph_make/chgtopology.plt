@@ -21,12 +21,12 @@ set key font "Helvetica, 20"
 
 set tics font "Helvetica,25"
 plot "chgtopology.dat" using 1:2 title "System throughput" w lp lt 1 pt 2 ps 2
-replot "chgtopology.dat" using 1:3 title "Fairness index" w lp dt 2 pt 6 ps 2 axes x1y2
+replot "chgtopology.dat" using 1:3 title "Fairness index" w lp lt 1 pt 6 ps 2 axes x1y2
 replot
 
 
 if(FILE_OUTPUT){
-set terminal postscript enhanced color
+set terminal postscript enhanced monochrome
 set output ARG2.".eps"
 replot
 }

@@ -33,9 +33,9 @@
 \newcommand{\rij}{r^{\sij}}
 \newcommand{\etau}{\eta_{\rm u}^{(j)}}
 
-\jtitle{QoS向上に向けた送信機会の最適化}
+\jtitle{全二重通信無線LANにおける公平性とQoSの改善}
 %\jsubtitle{}
-\etitle{Transmission Opportunity Optimization for QoS improvement}
+\etitle{Fairness and QoS improvement for in-band full-duplex WLANs}
 %\esubtitle{}
  \alignorder=4
  \breakauthorline{4}
@@ -61,35 +61,40 @@
 \begin{document}
 \begin{jabstract}
 	全二重通信無線LANでは送信と受信を同時に同じ周波数帯で行うため，
-	1台のAP（Access Point）と2台のSTA（station）による一方向全二重通信の場合，
-	APの所望信号に自身の送信信号が影響を与える自己干渉と，
-	STAの送信信号が別のSTAの受信信号に干渉を与えるユーザ間干渉が問題となる．
+	1台のAP（Access Point）とその左右に配置された2台のSTA（station） A，Bによる一方向全二重通信の場合，
+	APの受信信号にAPの送信信号が影響を与える自己干渉と，
+	STA Aの送信信号がSTA Bの受信信号に干渉を与えるユーザ間干渉が問題となる．
 	自己干渉は自己干渉除去技術によって低減可能であるが，ユーザ間干渉は除去できない．
-	そのため，ユーザ間干渉の影響を小さくするため，全二重通信を参加する2台のSTAの組み合わせをユーザ間干渉を考慮して決定する手法が検討されている．
-	しかし，それらの手法では自己干渉やユーザ間干渉の量に応じて変動する過去の受信成功確率やスループットによってSTAの組み合わせが決定されるため，
-	STA間の公平性やアプリケーションの要求の違いを考慮できていない．
-	特に，遅延が小さいことが望ましいアプリケーションを用いているSTAであっても，干渉が大きければ送信機会を得にくくなる．
+	そのため，ユーザ間干渉の影響を小さくするため，全二重通信に参加する2台のSTAの組み合わせをユーザ間干渉を考慮して決定する手法が検討されている．
+	しかし，従来の手法ではシステムスループットを最大化するために，
+	自己干渉やユーザ間干渉の量に応じて変動する過去の受信成功確率やスループットをもとにSTAの組み合わせを決定するため，
+	STA間の公平性やアプリケーションサービスの要求の違いを考慮できていない．
+	特に，遅延が小さいことが望ましいアプリケーションサービスを用いているSTAであっても，干渉が大きければ送信機会を得にくくなる．
 	本稿ではこの問題解決のために，まず，STA間での公平性を改善する．
-	さらに，遅延が小さいことが望ましいアプリケーションを用いているSTAの送信機会を増加させ，QoS（Quality of Service）を向上させる手法を提案する．
-	さらに，提案手法による公平性の改善効果と低遅延を要求するSTAのQoSの向上効果を計算機シミュレーションを用いて示す．
+	さらに，遅延が小さいことが望ましいアプリケーションサービスを用いるSTAの送信機会を増加させ，QoS（Quality of Service）を向上させる手法を提案する．
+	さらに，提案手法による公平性の改善効果と低遅延を要求するSTAのQoSの向上効果を計算機シミュレーションにより明らかにする．
 \end{jabstract}
 \begin{jkeyword}
 全二重通信無線LAN，ユーザ間干渉，最適化
 \end{jkeyword}
 \begin{eabstract}
-	In in-band full-duplex wireless local area networks (WLANs), wireless devices can transmit and receive at the same time and the same frequency channel.
-	Particularly in uni-directional full-duplex WLANs by one access point (AP) and two stations (STAs), self-interference and inter-user interference become a big problem.
-	The self-interference is a interference in the desired signal of AP by own transmission signal, and the inter-user interference is a interference in one of the two STAs from the other STA.
-	The self-interference can be canceled, but the inter-user interference cannot be canceld.
-	Some authers had already proposed schemes to select the two STAs to communicate in the full-duplex system considering influences of the inter-user interferences.
-	However, since these shcemes select STAs based on only the past full-duplex transmission success probability or throughput, they cannot take into account fairness between STAs and application requests like need short delay time.
+	Wireless devices of in-band full-duplex wireless local area networks (WLANs) can transmit and receive at the same time and the same frequency channel.
+	In uni-directional full-duplex WLANs by an access point (AP), station (STAs) A and B,
+	self-interference and inter-user interference become a big problem.
+	The self-interference is an interference in the received signal of AP caused by own transmission signal,
+	and the inter-user interference is an interference in STA B caused by STA A.
+	The self-interference can be canceled sufficiently by the cutting edg cancellation technology, but the inter-user interference cannot be canceled.
+	Conventional methods had already proposed schemes to select a pair of STAs to communicate in the full-duplex system considering influences of the inter-user interferences.
+	However, since these schemes select STAs based on only the past full-duplex transmission success probability or throughput, they cannot take into account fairness between STAs and application services which require short delay.
 	In this paper, we propose a scheme to improve the fairness and transmission opportunity optimization for quality of service (QoS) improvemnt.
-	The simulation results show that the proposed methods improve the fairness and QoS.
+	Simulation results show that the proposed methods improve the fairness and QoS.
 
 \end{eabstract}
 \begin{ekeyword}
 full-duplex wireless LAN, inter-user interference, optimization
 \end{ekeyword}
+
+\titlepagebaselinestretch{0.92}
 
 \maketitle
 
@@ -103,24 +108,24 @@ full-duplex wireless LAN, inter-user interference, optimization
 	\par
 	全二重通信無線LANでは図\ref{fig:topology}に示すような従来の半二重通信では存在しなかった二つの干渉が問題となる．
 	一つは，送受信を行っているAP（Access Point）において，送信信号が所望の受信信号に干渉を及ぼす自己干渉であり，
-	もう一つは，STA（station）の送信信号がもう一方のSTAの受信信号に干渉を及ぼすユーザ間干渉である．
+	もう一つは，STA（station） $j$の送信信号がもう一方のSTA $i$の受信信号に干渉を及ぼすユーザ間干渉である．
 	自己干渉は自己干渉キャンセル技術によって無視できるレベルまで削減できることが示されている~\cite{fdmac, stanford1}．
-	また，ユーザ間干渉に関しても，適切なSTAの組み合わせを選び出したり，
-	送信電力制御を行ったりすることでユーザ間干渉を削減する手法が提案されている~\cite{contra, promac}．
-	しかし，~\cite{contra}ではSTAの組み合わせを選び出すために過去の全二重通信の成功確率が用いられるため，
+	また，ユーザ間干渉に関しても，適切なSTAの組み合わせを選び出すことや，
+	送信電力制御を行うことでユーザ間干渉を削減する手法が提案されている~\cite{contra, promac}．
+	しかし，~\cite{contra}では1対のSTAの組み合わせを選び出すために過去の全二重通信の成功確率が用いられるため，
 	干渉の影響のみが考慮されSTA間の公平性が低下する問題がある．
 	また~\cite{promac}ではSTAの組み合わせの決定に際してCSMA/CA（Carrier Sence Multiple Access with Collision Avoidance）のバックオフアルゴリズムを用いるためある程度の公平性は保証されるが，
-	バックオフカウンタがスループットに依存する手法をとっているため干渉の影響が依然として大きく，公平性が高いとは言えない．
-	さらに，両者は各STAが利用しているアプリーケーションの要求の違いが考慮されておらず，
+	バックオフカウンタがスループットに依存する手法をとっているため干渉の影響が依然として大きく，公平性は低い．
+	さらに，両者は各STAが利用しているアプリケーションサービスの要求の違いが考慮されておらず，
 	例えば低遅延を要求するようなSTAが存在してもそれに応えることはできない．
-	これらの理由から，STAのQoSが低下してしまう問題がある．
+	これらの理由から，STAの大きくQoSが低下してしまう問題がある．
 	\par
 	本稿では，これらの問題を解決するために，まずSTA間の送信機会の公平性を改善する手法を提案する．
-	次に，各STAが利用しているアプリケーションの要求に違いがある場合，特に低遅延を要求するSTAとそうでないSTAが混在している場合において，
+	次に，各STAが利用しているアプリケーションサービスの要求に違いがある場合，特に低遅延を要求するSTAとそうでないSTAが混在している場合において，
 	低遅延を要求するSTAの送信機会を増加させQoSを向上する手法を提案する．
 	さらに，二つの提案手法の有効性を計算機シミュレーションによって評価する．
 	\par
-	本稿の構成は以下のとおりである．第2章で本稿で扱うシステムモデルについて述べ，第3章では本稿で用いるMACプロトコル~\cite{promac}について述べる．
+	本稿の構成は以下のとおりである．第2章で本稿で扱うシステムモデルについて述べ，第3章では従来のMACプロトコル~\cite{promac}について述べる．
 	さらに，第4章において提案手法について述べ，第5章では提案手法の有効性をシミュレーションによって評価する．
 	最後に第6章でまとめとする．
 
@@ -147,33 +152,40 @@ full-duplex wireless LAN, inter-user interference, optimization
 	このとき，STAの組み合わせを$\sij$と表現し，$i,\ j \in \{0\}\cup \mN$であり，$i\neq j$とする．
 	ただし，$i=0$のときは下り通信を伴わない上り通信のみの半二重通信であり，
 	$j=0$のときは上り通信を伴わない下り通信のみの半二重通信であるとする．
-	さらに，この$N$台のSTAの中に低遅延を要求するアプリケーションを用いているSTAが$n$台存在し，
+	さらに，この$N$台のSTAの中に低遅延を要求するアプリケーションサービスを用いているSTAが$n$台存在し，
 	そのインデックス集合を${\mathcal D}\subset\mN$とする．
 	ただし，低遅延を要求しないSTAのインデックス集合は${\overline {\mathcal D}}$と表し，
 	${\mathcal D} \cup {\overline {\mathcal D}}=\mN,\ {\mathcal D} \cap {\overline {\mathcal D}}=\phi$とする．
 
-\section{Probabilitsic-based adaptive full-duplex and half-duplex medium access control}
+\section{従来方式}
+	本章では従来方式~\cite{promac}のMACプロトコルについて述べる．
+	このMACプロトコルはシステムスループットを最大化するため，
+	各STAの組み合わせごとに推定されるスループットを評価関数に用いた最適化問題を解くことで
+	その組み合わせによって全二重通信が行われる確率を求め，
+	その確率に基づいてSTAの組み合わせが決定される．
 	\subsection{STAの組み合わせの決定手順}\label{sec:promac}
 		本節では~\cite{promac}におけるSTAの組み合わせの決定手順について述べる．
 		このMACプロトコルでは，APとSTA $i$，$j$の組み合わせで全二重通信が行われる確率$\pij$に基づいてSTA $i$，$j$が決定される．
 		\par
-		まず，全二重通信の組み合わせ
+		まず，全二重通信の組み合わせを式\eqref{eq:cfull}に示す．
 		\begin{equation}
-			{\mathcal C}_{\rm full} \triangleq \{\sij : i,j\in{\mathcal N},\ i\neq j,\ r^{\sij}_{\rm d},\ r^{\sij}_{\rm u}>\epsilon\}
+			{\mathcal C}_{\rm full} \triangleq \{\sij : i,j\in{\mathcal N},\ i\neq j,\ r^{\sij}_{\rm d},\ r^{\sij}_{\rm u}>\epsilon\} \label{eq:cfull}
 		\end{equation}
-		に対して，上り下りそれぞれの実効スループット$\rd$，$\ru$を推定し，その合計を$\rij$とする．
+		ただし，$r_{\rm d}^{\sij}$，$r_{\rm u}^{\sij}$はそれぞれAPからSTA $i$への下りの実効スループット，
+		STA $j$からAPへの上りの実効スループットである．
+		${\mathcal C}_{\rm full}$に対して，上り下りそれぞれの実効スループット$\rd$，$\ru$を推定し，その合計を$\rij$とする．
 		さらに，半二重通信の組み合わせ
 		\begin{equation}
 			{\mathcal C}_{\rm half} \triangleq \{\sij : i=0\ {\rm or}\ j=0,\ \rij >\epsilon\}
 		\end{equation}
-		に対しても実行スループット$\rij$を推定する．
+		に対しても実効スループット$\rij$を推定する．
 		得られた$\rij$に基づいて以下の最適化問題を解き，確率$\pij$を得る．
 		\begin{align}
 			&{\mathcal P}_1: && {\rm max} \sum_{(i,\ j)\in{\mathcal C}} p^{(i,\ j)}r^{(i,\ j)} &&&&&& \label{eq:p1}\\
 			&{\rm subject\ to} && \sum_{j\in\{j:(i,\ j)\in{\mathcal C}\}} p^{(i,\ j)} \geq \eta_{\rm d}^{(i)},\ \forall i\in {\mathcal N}  \\
 			&&& \sum_{i\in\{i:(i,\ j)\in{\mathcal C}\}} p^{(i,\ j)} \geq \eta_{\rm u}^{(j)},\ \forall j\in {\mathcal N} \label{eq:pu}\\
 			&&& \sum_{j\in\{j:(i,\ j)\in{\mathcal C}\}} p^{(i,\ j)}=1 \\
-			&{\rm variables:} &&p^{(i,\ j)} \in {\mathbb R}_{\geq 0},\ \forall(i,\ j)\in {\mathcal C}
+			&{\rm variables:} &&p^{(i,\ j)} \in {\mathbb R}_{\geq 0},\ \forall(i,\ j)\in {\mathcal C} \nonumber
 		\end{align}
 		ただし，${\mathcal C} = {\mathcal C}_{\rm full} \cup {\mathcal C}_{\rm half}$である．
 		$\eta_{\rm d}^{(i)}$はSTA $i$への下り通信のトラヒックに比例した値であり，
@@ -188,43 +200,48 @@ full-duplex wireless LAN, inter-user interference, optimization
 			r_{\rm u}^{(0,\ j)} &>\epsilon,\ \forall j\in\mN \\
 			\sum_{i\in\mN}\eta_{\rm d}^{(i)} + \sum_{j\in\mN}\eta_{\rm u}^{(j)} &=1 \label{eq:feasible}
 		\end{align}
-		なお，この最適化問題は最大でビーコンごとに解かれ，更新された確率$\pij$はビーコンフレームによってSTAに通知される．
+		なお，この最適化問題は最大でAPが送信するビーコン信号周期ごとに解かれ，更新された確率$\pij$はビーコンフレームによってSTAに通知される．
 		\par
 		次に，得られた$\pij$を用いてSTA $i$，$j$を決定する方法を述べる．
 		APは
 		\begin{equation}
 			p_{\rm d}^{(i)}= \sum_{j\in\{j:(i,\ j)\in{\mathcal C}\}}p^{(i,\ j)},\ \forall i \in \{0\}\cup{\mathcal N}
 		\end{equation}
-		によって各STAが下り通信の送信先となる確率$p_{\rm d}^{(i)}$を求め，この確率に従ってランダムに送信先STA $i$を選択する．
-		さらに，
+		によって各STAが下り通信の送信先となる確率$p_{\rm d}^{(i)}$を求め，この確率に従って一様ランダムに送信先STA $i$を選択する．
+		次にSTA $j$を決定する．
+		各STAは，「APがSTA $i$へ下り通信を行うことが決まった上で自身がAPへの上り通信の送信権を獲得する」という条件付き確率$p_{\rm u}^{\sij}$を
 		\begin{equation}
 			p_{\rm u}^{\sij} = P(j\ {\rm wins\ uplink|AP\ sends\ to}\ i)=\pij / p_{\rm d}^{(i)}
 		\end{equation}
-		によって得られた条件確率$p_{\rm u}^{\sij}$を用いて${\rm CW}^{\sij}_{\rm u}$を
+		と求め，コンテンションウィンドウサイズ${\rm CW}^{\sij}_{\rm u}$を
 		\begin{equation}
 			{\rm CW}^{\sij}_{\rm u} = \lceil 1/p_{\rm u}^{(j)} \rceil
 		\end{equation}
-		と設定し，${\rm CW}^{\sij}_{\rm u}$をコンテンションウィンドウサイズとしたバックオフアルゴリズムによってSTA $j$が決まる．
+		とする．
+		各STAは$[0,\ {\rm CW}^{\sij}_{\rm u}]$の一様分布から生成されるバックオフカウンタ$w_{\rm u}^{\sij}$を設定し，
+		CSMA/CAのバックオフアルゴリズムを用い，バックオフカウンタを1ずつ減らし，
+		その結果，最初にカウンタが0となったSTAがSTA $j$として上り通信の送信権を獲得する．
 
 	\subsection{問題点}
 		前節で述べたように~\cite{promac}では，STA $i$，$j$の干渉が小さい組み合わせが選ばれやすい．
-		図\ref{fig:numtx}にこのSTAの組み合わせの決定手順を再現したシミュレーションによって得られた各STAの上り通信送信回数を示す．
+		図\ref{fig:numtx}にSTA台数を$N=50$としたシステムで
+		従来のSTAの組み合わせの決定手順を再現したシミュレーションによって得られた各STAの上り通信送信回数を示す．
 		結果からわかるように，一部のSTAが非常に選ばれやすいことがわかる，
-		このことから，送信機会に関する公平性は低く，加えて，低遅延を要求するようなアプリケーションを利用しているSTAが存在する場合にも，
+		このことから，送信機会に関する公平性は低く，加えて，低遅延を要求するようなアプリケーションサービスを利用しているSTAが存在する場合にも，
 		その要求に応えることはできないという問題がある．
 		本稿では，この2つの問題点に関して解決を図り，QoSの向上を目指す．
 
 		\begin{figure}[t]
 			\centering
 			\epsfig{file=graph/numtx.eps, scale=0.6}
-			\caption{STAの送信回数}
+			\caption{従来方式によるSTAの送信回数の分布}
 			\label{fig:numtx}
 		\end{figure}
 
 \section{提案方式}
 \subsection{公平性の改善}\label{sec:fair}
 	本節ではSTA間の送信機会の公平性を改善するための検討を行う．
-	最初に述べたように既存のMACプロトコルでは干渉が小さい組み合わせが選ばれやすく，
+	最初に述べたように従来のMACプロトコルでは干渉が小さい組み合わせが選ばれやすく，
 	STA間の公平性が低下するという問題点がある．
 	この問題を解決をするため以下のように，式\eqref{eq:p1}に待機時間$d^{(j)}$の項を評価関数に追加する．
 	\begin{equation}
@@ -241,26 +258,27 @@ full-duplex wireless LAN, inter-user interference, optimization
 	\par
 	公平性の改善を行うと，公平性の改善を行わない場合に比べて比較的干渉の多いSTAの組み合わせが選ばれることが多くなり，
 	システムスループットの低下が考えられる．
-	そのため，公平性の改善とシステムスループットの低下のバランスを調整可能とするための重み$\alpha\geq 0$も導入している．
+	そのため，公平性の改善とシステムスループットの低下のトレードオフを調整可能とするための重み係数$\alpha\geq 0$を導入している．
 \subsection{低遅延を要求するSTAのQoSの向上}
-	本節では，全体の公平性を改善した上で，さらに低遅延を要求するSTAのQoSを改善するための提案方式について述べる．
+	本節では，システム全体の公平性を改善した上で，さらに低遅延を要求するSTAのQoS改善を行う提案方式について述べる．
 	低遅延を要求するSTAのQoSを向上させるためには，
 	上り通信を行う確率$p_{\rm u}^{(j)}$を大きくし，送信機会を増加させればよい．
 	これを実現するために，式\eqref{eq:pu}において$p_{\rm u}^{(j)}$の最低値を決定していた$\etau$を大きくすることを考える．
-	具体的には，以下の式のように低遅延を要求していないSTAから送信確率を$x_j$だけ譲り受け，
-	それを低遅延を要求するSTAで分け合うという方法をとる．
+	具体的には，以下の式のように低遅延を要求していないSTAの最低送信確率$\etau$から$x_j$だけ譲り受け，
+	それを低遅延を要求するSTAの最低送信確率${\hat \eta}_{\rm u}^{(j)}$に加える．
 	\begin{align}
 		{\hat \eta}_{\rm u}^{(j)} &= \etau -x_j > 0,\ \forall j \in {\overline {\mathcal D}} \label{eq:etadbar}\\
 		{\hat \eta}_{\rm u}^{(j)} &= \etau + x_j, \ \forall j \in {\mathcal D} \label{eq:etad}\\
 		\sum_{j\in{\overline {\mathcal D}}} x_j &= \sum_{j\in{\mathcal D}} x_j \label{eq:sub}
 	\end{align}
 	なお，式\eqref{eq:sub}は式\eqref{eq:feasible}を満たし可解性を失わないための条件である．
+	提案方式では以上のように新たに設定された${\hat \eta}_{\rm u}^{(j)}$を最適化問題の制約条件である式\eqref{eq:pu}に用いる．
 	これによって，低遅延を要求するSTAの送信機会が増加し送信間隔が短くなることで遅延時間が短縮されQoSが改善される．
 
 \section{シミュレーション評価}
-	本章では提案手法の効果をシミュレーションによって評価する．
-	共通のシミュレーション諸元を表\ref{tab:param}に示す．
-	MACプロトコルは~\cite{promac}に従い，上下通信ともに飽和トラヒックであるものとする．
+	本章では提案手法の有効性をシミュレーションによって評価する．
+	シミュレーション諸元を表\ref{tab:param}に示す．
+	MACプロトコルは~\cite{promac}に従い，上下通信ともに飽和トラヒックの場合を取り扱う．
 
 	\begin{table}[t]
 		\centering
@@ -273,54 +291,56 @@ full-duplex wireless LAN, inter-user interference, optimization
 			雑音指数 & 10\,dB \\
 			減衰定数 & 3 \\
 			周波数帯 & 5\,GHz \\
-			自己干渉キャンセル & 110\,dB \\ \hline
+			自己干渉キャンセル & 110\,dB \\
+			シミュレーション時間 & 10\,s \\\hline
 		\end{tabular}
 	\end{table}
 
 	\subsection{公平性の改善}
-	図\ref{fig:fair}に$N=50$とした場合の各STAの上り通信送信回数を示す．
+	図\ref{fig:fair}にSTA台数を$N=50$とした場合の各STAの全シミュレーション時間内での上り通信送信回数を示す．
 	図\ref{fig:numtx}と比較して，一部のSTAが極端に選ばれやすいという現象が改善されていることがわかる．
 	次に，システムスループットと公平性の関係性を確認するため，
 	図\ref{fig:thr_fair}にシステムスループットとSTA間の公平性を示す．
-	ただし，いずれも10種のSTA配置の平均値であり，
+	ただし，いずれも図\ref{fig:model}のような10種のSTA配置の平均値であり，
 	公平性の評価はJain's fairness index~\cite{jain}に各STAの送信回数を代入することで求めている．
-	STA間の送信機会に関する公平性を大きく改善できたうえ，
-	重み$\alpha$を変化させることで，公平性の改善とシステムスループット低下のバランスをシステムの要求に応じて変化させられることがわかる．
-	また，この場合$\alpha=3$のときにスループットの低下が小さく，公平性が高くなっている．
+	STA間の送信機会に関する公平性を大きく改善した上，
+	重み係数$\alpha$を変化させることで，公平性の改善とシステムスループット低下のトレードオフをシステムの要求に応じて変化可能である．
+	また，この場合$\alpha=0.3$のときにスループットの低下が小さく，公平性が高くなっている．
 	\par
 	次に，このスループットの低下が小さく，公平性が高くなる$\alpha$の値がシミュレーション条件によってどのように変化するかを示す．
-	図\ref{fig:chgparam}\subref{fig:chgtopology}にSTAの配置を変更した場合のシステムスループットとSTA間の公平性を示す．
+	図\ref{fig:chgparam}\subref{fig:chgtopology}に最初の10種とは異なるあるSTA配置の場合のシステムスループットとSTA間の公平性を示す．
 	この場合，システムスループットの低下が小さく，STA間の公平性が高い$\alpha$の値は0.2程度である．
 	さらに，図\ref{fig:chgparam}\subref{fig:chgnum}にSTA台数を$N=30$とした場合の結果を示す．
+	ただし，結果は10種のSTA配置による結果の平均値である．
 	この場合にも，$\alpha=0.2$あたりでバランスが良いことがわかる．
-	いずれもスループットの値やfaieness indexの値は異なるが，概ね$\alpha$は0.2から0.3で公平性の改善とスループットの低下のバランスが良いことがわかる．
+	いずれもスループットの値やfairness indexの値は異なるが，概ね$\alpha$は0.2から0.3で公平性の改善とスループットの低下のバランスが良いことがわかる．
 
 	\begin{figure}[t]
 		\centering
 		\epsfig{file=graph/numtxfair.eps, scale=0.6}
-		\caption{STA間の送信機会に関する公平性の改善}
+		\caption{提案方式によるSTAの上り通信送信回数の分布}
 		\label{fig:fair}
 	\end{figure}
 
 	\begin{figure}[t]
 		\centering
 		\epsfig{file=graph/thr_fair.eps, scale=0.6}
-		\caption{STA間の送信機会に関する公平性の改善}
+		\caption{重み係数$\alpha$に対するシステムスループットとfairness index}
 		\label{fig:thr_fair}
 	\end{figure}
 
 	\begin{figure}[t]
 		\centering
-		\subfloat[STAの配置を変更した場合]{
+		\subfloat[あるSTA配置におけるシステムスループットとfariness index]{
 			\epsfig{file=graph/chgtopology.eps, scale=0.6}
 			\label{fig:chgtopology}
 		}
 		\\
-		\subfloat[STA台数を$N=30$に変更した場合]{
+		\subfloat[STA台数を$N=30$に変更した場合のシステムスループットとfairness index]{
 			\epsfig{file=graph/chgnum.eps, scale=0.6}
 			\label{fig:chgnum}
 		}
-		\caption{シミュレーション条件を変更した場合}
+		\caption{重み係数$\alpha$に対するシステムスループットとfairness index（シミュレーション条件を変更した場合）}
 		\label{fig:chgparam}
 	\end{figure}
 
@@ -328,17 +348,19 @@ full-duplex wireless LAN, inter-user interference, optimization
 	次に，低遅延を要求するSTAのQoS向上について評価を行う．
 	本シミュレーションでは式\eqref{eq:etadbar}における$x_j$は
 	低遅延を要求しない全STA共通の値$x_j=x,\ \forall j\in {\overline {\mathcal D}}$とし，
-	式\eqref{eq:etad}における$x_j$も低遅延を要求する全STA共通の値$x_j=x|{\overline {\mathcal D}}|/|{\mathcal D}|,\ \forall j \in {\mathcal D}$とした．
+	式\eqref{eq:etad}における$x_j$も低遅延を要求する全STA共通の値$x_j=x|{\overline {\mathcal D}}|/|{\mathcal D}|,\ \forall j \in {\mathcal D}$とした．ただし，$|{\overline {\mathcal D}}|$は${\overline {\mathcal D}}$の，
+	$|{\mathcal D}|$は${\mathcal D}$の要素数を表す．
 	また，STA台数$N$は50台であり，$\alpha=0.3$である．
 	\par
-	まず最初に低遅延を要求するSTA台数を$n=5$，$x=0.05$とした場合に，それらの送信間隔が短縮されているかを確認する．
+	まず最初に低遅延を要求するSTA台数を$n=5$，$x=0.05$とした場合に，それらの送信間隔が短縮されていることを確認する．
 	低遅延を要求するSTAは${\mathcal D}=\{46,\ 47,\ 48,\ 49,\ 50\}$であるとする．
-	図\ref{fig:inter}\subref{fig:interfair}に公平性のみを考慮した場合の，
-	図\ref{fig:inter}\subref{fig:intereta}に低遅延を要求するSTAの送信機会を増加させた場合の各STAの平均送信間隔を示す．
+	図\ref{fig:inter}\subref{fig:interfair}に公平性のみを考慮した場合について，
+	図\ref{fig:inter}\subref{fig:intereta}に低遅延を要求するSTAの送信機会を増加させた場合について各STAの平均送信間隔を示す．
 	公平性のみを考慮した場合は全STA間の送信機会の公平性が高いことから，
 	送信間隔のばらつきが少ないが，低遅延を要求するSTA 46から50の送信間隔も平均43\,msと長い．
-	一方，アプリケーションの違いを考慮し，低遅延を要求するSTAの送信機会を増加させたところ，
+	一方，アプリケーションサービスの違いを考慮し，低遅延を要求するSTAの送信機会を増加させたところ，
 	送信間隔を15\,msと1/3程度まで削減することができた．
+	しかし，低遅延を要求しないSTA間の公平性は，公平性のみを考慮していた場合に比べて劣化した．
 
 	\begin{figure}[t]
 		\centering
@@ -357,10 +379,10 @@ full-duplex wireless LAN, inter-user interference, optimization
 
 \section{まとめ}
 本稿では，全二重通信無線LANの既存のMACプロトコルが持つSTA間の公平性の低さと
-STAが利用しているアプリケーションの違いを考慮できていないといった問題について検討し，
+STAが利用しているアプリケーションサービスの違いを考慮できていないといった問題について検討し，
 それらを解決する手法を提案した．
 各STAの待機時間を考慮することで，送信機会を得ることができていないSTAに送信機会を与えることで
-STA間の公平性を大幅に改善し，さらに，重み$\alpha$によって公平性の改善とスループットの低下のバランスを調整できることを示した．
+STA間の公平性を大幅に改善し，さらに，重み係数$\alpha$によって公平性の改善とスループットの低下のバランスを調整できることを示した．
 また，低遅延を要求するようなSTAの送信機会を増加させることでQoSの改善を行った．
 
 
