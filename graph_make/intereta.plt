@@ -7,7 +7,7 @@ reset
 set size 1,0.8
 #set ytics nomirror 
 set xlabel "Index of STAs" font "Helvetica, 30"
-set ylabel "Transmission interval (ms)" font "Helvetica, 30"
+set ylabel "Average transmission interval (ms)" font "Helvetica, 23"
 set xrange [0:51]
 set yrange [0:270]
 

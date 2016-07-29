@@ -20,8 +20,8 @@ set key at 1, 10
 set key font "Helvetica, 20"
 
 set tics font "Helvetica,25"
-plot "chgnum.dat" using 1:2 title "System throughput" w lp lt 1 pt 2 ps 2
-replot "chgnum.dat" using 1:3 title "Fairness index" w lp lt 1 pt 6 ps 2 axes x1y2
+plot "chgnum.dat" using 1:2 title "System throughput" w lp lt 1 lw 4 pt 2 ps 2
+replot "chgnum.dat" using 1:3 title "Fairness index" w lp lt 1 lw 4 pt 6 ps 2 axes x1y2
 replot
 
 
