@@ -19,3 +19,5 @@
 *.sh
 
 /log
+/doc
+/slide
